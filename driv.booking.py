@@ -1,12 +1,25 @@
-import sqlite3 as sq
-from sqlite3 import Error
+import sqlite3  # Import the SQLite library
+
 
 def database_connection():
-        try:
-            connection = sq.connect(database="sample.db")
-            connection.cursor()
+    try:
+        # Establish a connection to the SQLite database
+        connection = sqlite3.connect("sample.db")
 
-            sql_task = """        
+        if connection:
+            print("Connected to the database!")
+
+            # Create a cursor object to execute queries
+            cursor = connection.cursor()
+
+            # Return both the connection and cursor objects
+            return connection, cursor
+
+    except sqlite3.Error as error:
+            print("Error connecting to the database:", error)
+            return None, None  # Return None if connection fails
+
+            sql_task = """        # SQL Booking tasks 
             CREATE TABLE BOOKINGS
             (ID INT PRIMARY KEY NOT NULL,
             PICKUP TEXT NOT NULL,
@@ -40,5 +53,5 @@ def database_connection():
             response = connection.execute(sql_task)
 
 
-        except Exception as error_code:
+    except Exception as error_code:
             raise error_code
