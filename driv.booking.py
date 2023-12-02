@@ -1,6 +1,5 @@
 import sqlite3  # Import the SQLite library
 
-
 def database_connection():
     try:
         # Establish a connection to the SQLite database
@@ -19,7 +18,8 @@ def database_connection():
             print("Error connecting to the database:", error)
             return None, None  # Return None if connection fails
 
-            sql_task = """        # SQL Booking tasks 
+            # SQL Booking tasks
+            sql_task = """         
             CREATE TABLE BOOKINGS
             (ID INT PRIMARY KEY NOT NULL,
             PICKUP TEXT NOT NULL,
@@ -48,6 +48,12 @@ def database_connection():
             Vehicle_Inspection VARCHAR(10),
             Vehicle_Number VARCHAR(6)
             );
+            
+            CREATE TABLE Driver_Preview (
+            Driver_designated_trips TEXT INT PRIMARY KEY,
+            Driver_fully_booked_trips TEXT
+            );
+);
          """
 
             response = connection.execute(sql_task)
